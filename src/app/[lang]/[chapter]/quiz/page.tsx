@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { parseChapter } from '@/lib/markdownParser';
+import { parseChapter, getChapters } from '@/lib/markdownParser';
 import QuizClient from './QuizClient';
 
 interface PageProps {
@@ -8,6 +8,17 @@ interface PageProps {
     lang: string;
     chapter: string;
   }>;
+}
+
+export function generateStaticParams() {
+  const paths: { lang: string; chapter: string }[] = [];
+  ['de', 'en'].forEach((lang) => {
+    const chapters = getChapters(lang);
+    chapters.forEach((ch) => {
+      paths.push({ lang, chapter: ch.id });
+    });
+  });
+  return paths;
 }
 
 export default async function QuizPage({ params }: PageProps) {

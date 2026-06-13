@@ -8,6 +8,17 @@ import Header from '@/components/Header';
 import { Award, BookOpen } from 'lucide-react';
 
 
+export function generateStaticParams() {
+  const paths: { lang: string; chapter: string }[] = [];
+  ['de', 'en'].forEach((lang) => {
+    const chapters = getChapters(lang);
+    chapters.forEach((ch) => {
+      paths.push({ lang, chapter: ch.id });
+    });
+  });
+  return paths;
+}
+
 interface PageProps {
   params: Promise<{
     lang: string;
