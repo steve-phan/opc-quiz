@@ -36,7 +36,7 @@ const chaptersList: Omit<ChapterInfo, 'title'>[] = [
 
 export function getChapters(lang: string): ChapterInfo[] {
   return chaptersList.map((ch) => {
-    const filePath = path.join(process.cwd(), '..', 'study_guide', lang === 'de' ? 'de' : '', ch.fileName);
+    const filePath = path.join(process.cwd(), 'study_guide', lang === 'de' ? 'de' : '', ch.fileName);
     let title = ch.id.replace(/_/g, ' ').replace('chapter ', 'Chapter ');
     try {
       const content = fs.readFileSync(filePath, 'utf-8');
@@ -57,7 +57,7 @@ export function parseChapter(lang: string, chapterId: string) {
     throw new Error(`Chapter not found: ${chapterId}`);
   }
 
-  const filePath = path.join(process.cwd(), '..', 'study_guide', lang === 'de' ? 'de' : '', chapter.fileName);
+  const filePath = path.join(process.cwd(), 'study_guide', lang === 'de' ? 'de' : '', chapter.fileName);
   const content = fs.readFileSync(filePath, 'utf-8');
 
   // Split at the start of Section 4 (Tricky OCP Exam Questions)
